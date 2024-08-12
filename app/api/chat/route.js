@@ -16,7 +16,7 @@ export async function POST(req) {
 
   // Directly set the API key in the configuration (not recommended for production)
   const configuration = new Configuration({
-    apiKey: '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', // Replace with your actual API key
+    apiKey: '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', // Replace with your actual API key
   });
   const openai = new OpenAIApi(configuration); // Initialize the OpenAIApi client with the configuration
 
