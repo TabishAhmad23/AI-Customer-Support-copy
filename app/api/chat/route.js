@@ -14,9 +14,14 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }); // Return a 400 error if JSON parsing fails
   }
 
-  // Directly set the API key in the configuration (not recommended for production)
+  // Retrieve the API key from environment variables
+  const apiKey = process.env.OPENAI_API_KEY; // Ensure you have this key in your .env.local file
+  if (!apiKey) {
+    return NextResponse.json({ error: 'API key not found' }, { status: 500 }); // Return a 500 error if API key is missing
+  }
+
   const configuration = new Configuration({
-    apiKey: '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', // Replace with your actual API key
+    apiKey: apiKey,
   });
   const openai = new OpenAIApi(configuration); // Initialize the OpenAIApi client with the configuration
 
@@ -51,4 +56,5 @@ export async function POST(req) {
   // Return the stream as the HTTP response
   return new NextResponse(stream);
 }
+
 
